@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Carpool System - Publish Ride</title>
-    <link rel="stylesheet" href="static/Home.css" />
-    <link rel="stylesheet" href="static/FAQs.css" />
+    <title>Carpool System - Available Rides</title>
+    <link rel="stylesheet" href="Home.css" />
+    <link rel="stylesheet" href="FAQs.css" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -24,7 +24,7 @@
         <div class="title-elements">
           <a href="Index.html">
             <div class="float-left">
-              <img src="images/Connect.png" width="70%" />
+              <img src="Connect.png" width="70%" />
             </div>
           </a>
           <div class="float-right titlebar-actions">
@@ -74,34 +74,27 @@
         </div>
       </div>
 
-      <div class="clear-both hero centre-align">
-        <div class="hero-elements top-pad bot-pad">
-          <div class="ele-pad-b titles">Publish a New Ride</div>
-
-          <div class="publish-form">
-            <input
-              type="text"
-              placeholder="Leaving from"
-              class="publish-input"
-            />
-            <input type="text" placeholder="Going to" class="publish-input" />
-            <input type="datetime-local" class="publish-input" />
-            <input
-              type="number"
-              placeholder="Available seats"
-              class="publish-input"
-            />
-            <input
-              type="number"
-              placeholder="Price per seat"
-              class="publish-input"
-            />
-            <textarea
-              placeholder="Additional information (optional)"
-              class="publish-input"
-            ></textarea>
-            <button class="button publish-button">Publish Ride</button>
+      <!-- Main Content -->
+      <div class="rides-container">
+        <div class="titles">Available Rides</div>
+        <div class="rides-list">
+          <div class="ride-item">
+            <h3>Ride from A to B</h3>
+            <p><strong>Departure:</strong> Location A</p>
+            <p><strong>Destination:</strong> Location B</p>
+            <p><strong>Date:</strong> 2025-03-01</p>
+            <p><strong>Seats Available:</strong> 3</p>
+            <p><strong>Price per Seat:</strong> $10</p>
           </div>
+          <div class="ride-item">
+            <h3>Ride from C to D</h3>
+            <p><strong>Departure:</strong> Location C</p>
+            <p><strong>Destination:</strong> Location D</p>
+            <p><strong>Date:</strong> 2025-03-02</p>
+            <p><strong>Seats Available:</strong> 2</p>
+            <p><strong>Price per Seat:</strong> $15</p>
+          </div>
+          <!-- Add more ride items as needed -->
         </div>
       </div>
     </main>

@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Carpool System - Passengers</title>
-    <link rel="stylesheet" href="static/Home.css" />
-    <link rel="stylesheet" href="static/FAQs.css" />
+    <title>Carpool System - My Profile</title>
+    <link rel="stylesheet" href="Home.css" />
+    <link rel="stylesheet" href="FAQs.css" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -16,6 +16,22 @@
       href="https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Teko:wght@300..700&display=swap"
       rel="stylesheet"
     />
+    <script>
+      function toggleEditForm() {
+        const profileInfo = document.querySelector(".profile-info");
+        const editForm = document.querySelector(".edit-form");
+        const editButton = document.querySelector(".edit-button");
+
+        profileInfo.style.display =
+          profileInfo.style.display === "none" ? "flex" : "none";
+        editForm.style.display =
+          editForm.style.display === "flex" ? "none" : "flex";
+        editButton.textContent =
+          editButton.textContent === "Edit Profile"
+            ? "Cancel Edit"
+            : "Edit Profile";
+      }
+    </script>
   </head>
   <body>
     <main>
@@ -24,7 +40,7 @@
         <div class="title-elements">
           <a href="Index.html">
             <div class="float-left">
-              <img src="images/Connect.png" width="70%" />
+              <img src="Connect.png" width="70%" />
             </div>
           </a>
           <div class="float-right titlebar-actions">
@@ -74,28 +90,56 @@
         </div>
       </div>
 
-      <!-- Main Content -->
-      <div class="passengers-container">
-        <div class="titles">Passengers</div>
-        <div class="passengers-list">
-          <div class="passenger-item">
-            <h3>Passenger: John Doe</h3>
-            <p><strong>Pickup Location:</strong> Location A</p>
-            <p><strong>Drop-off Location:</strong> Location B</p>
-            <p><strong>Date:</strong> 2025-03-01</p>
-            <p><strong>Contact:</strong> john.doe@example.com</p>
+      <div class="profile-container">
+        <div class="subtitles">My Profile</div>
+
+        <div class="profile-info">
+          <div class="profile-item">
+            <span class="profile-label text">Username:</span>
+            <span class="profile-value subtext" id="username">johndoe</span>
           </div>
-          <div class="passenger-item">
-            <h3>Passenger: Jane Smith</h3>
-            <p><strong>Pickup Location:</strong> Location C</p>
-            <p><strong>Drop-off Location:</strong> Location D</p>
-            <p><strong>Date:</strong> 2025-03-02</p>
-            <p><strong>Contact:</strong> jane.smith@example.com</p>
+          <div class="profile-item">
+            <span class="profile-label text">Email:</span>
+            <span class="profile-value subtext" id="email"
+              >john.doe@example.com</span
+            >
           </div>
-          <!-- Add more passenger items as needed -->
+          <div class="profile-item">
+            <span class="profile-label text">Name:</span>
+            <span class="profile-value subtext" id="name">John Doe</span>
+          </div>
+        </div>
+
+        <div class="edit-form">
+          <input type="text" id="edit-username" placeholder="Username" />
+          <input type="email" id="edit-email" placeholder="Email" />
+          <input type="text" id="edit-name" placeholder="Name" />
+          <button class="save-button" onclick="saveChanges()">
+            Save Changes
+          </button>
+        </div>
+
+        <div class="profile-actions">
+          <button class="profile-button edit-button" onclick="toggleEditForm()">
+            Edit Profile
+          </button>
+          <button class="profile-button logout-button">Logout</button>
         </div>
       </div>
     </main>
+    <script>
+      function saveChanges() {
+        const username = document.getElementById("edit-username").value;
+        const email = document.getElementById("edit-email").value;
+        const name = document.getElementById("edit-name").value;
+
+        document.getElementById("username").textContent = username;
+        document.getElementById("email").textContent = email;
+        document.getElementById("name").textContent = name;
+
+        toggleEditForm();
+      }
+    </script>
 
     <!-- Mobile Bottom Menu -->
     <nav class="mobile-menu">
