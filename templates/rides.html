@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Carpool System - Publish Ride</title>
-    <link rel="stylesheet" href="Home.css" />
-    <link rel="stylesheet" href="FAQs.css" />
+    <title>Carpool System - Available Rides</title>
+    <link rel="stylesheet" href="static/Home.css" />
+    <link rel="stylesheet" href="static/FAQs.css" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -24,7 +24,7 @@
         <div class="title-elements">
           <a href="Index.html">
             <div class="float-left">
-              <img src="Connect.png" width="70%" />
+              <img src="images/Connect.png" width="70%" />
             </div>
           </a>
           <div class="float-right titlebar-actions">
@@ -74,34 +74,20 @@
         </div>
       </div>
 
-      <div class="clear-both hero centre-align">
-        <div class="hero-elements top-pad bot-pad">
-          <div class="ele-pad-b titles">Publish a New Ride</div>
-
-          <div class="publish-form">
-            <input
-              type="text"
-              placeholder="Leaving from"
-              class="publish-input"
-            />
-            <input type="text" placeholder="Going to" class="publish-input" />
-            <input type="datetime-local" class="publish-input" />
-            <input
-              type="number"
-              placeholder="Available seats"
-              class="publish-input"
-            />
-            <input
-              type="number"
-              placeholder="Price per seat"
-              class="publish-input"
-            />
-            <textarea
-              placeholder="Additional information (optional)"
-              class="publish-input"
-            ></textarea>
-            <a href="passengers.html"><button class="button publish-button">Publish Ride</button></a>
+      <!-- Main Content -->
+      <div class="rides-container">
+        <div class="titles">Available Rides</div>
+        <div class="rides-list">
+          {% for ride in rides %}
+          <div class="ride-item">
+            <h3>Ride from {{ ride.departure }} to {{ ride.destination }}</h3>
+            <p><strong>Departure:</strong> {{ ride.departure }}</p>
+            <p><strong>Destination:</strong> {{ ride.destination }}</p>
+            <p><strong>Date:</strong> {{ ride.travel_date }}</p>
+            <p><strong>Seats Available:</strong> {{ ride.seats_available }}</p>
+            <p><strong>Price per Seat:</strong> ${{ ride.price_per_seat }}</p>
           </div>
+          {% endfor %}
         </div>
       </div>
     </main>
