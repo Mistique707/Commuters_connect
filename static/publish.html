@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carpool System - Publish Ride</title>
+    <link rel="stylesheet" href="Home.css" />
+    <link rel="stylesheet" href="FAQs.css" />
+  </head>
+  <body>
+    <main>
+      <div class="titlebar">
+        <div class="title-elements">
+          <a href="Index.html">
+            <div class="float-left">
+              <img src="Connect.png" width="70%" />
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="clear-both hero centre-align">
+        <div class="hero-elements top-pad bot-pad">
+          <div class="ele-pad-b titles">Publish a New Ride</div>
+
+          <div class="publish-form">
+            <input type="text" id="publisher-name" placeholder="Your Name" class="publish-input" required>
+            <input type="text" id="publisher-contact" placeholder="Your Contact" class="publish-input" required>
+            <input type="text" id="leaving-from" placeholder="Leaving from" class="publish-input" required />
+            <input type="text" id="going-to" placeholder="Going to" class="publish-input" required />
+            <input type="datetime-local" id="date-time" class="publish-input" required />
+            <input type="number" id="seats" placeholder="Available seats" class="publish-input" required />
+            <input type="number" id="price" placeholder="Price per seat" class="publish-input" required />
+            <textarea id="additional-info" placeholder="Additional information (optional)" class="publish-input"></textarea>
+            <button class="button publish-button">Publish Ride</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+        document.querySelector(".publish-button").addEventListener("click", function(event) {
+            event.preventDefault();
+    
+            let publisherName = document.getElementById("publisher-name").value.trim();
+            let publisherContact = document.getElementById("publisher-contact").value.trim();
+            let leavingFrom = document.getElementById("leaving-from").value.trim();
+            let goingTo = document.getElementById("going-to").value.trim();
+            let dateTime = document.getElementById("date-time").value.trim();
+            let seats = document.getElementById("seats").value.trim();
+            let price = document.getElementById("price").value.trim();
+            let additionalInfo = document.getElementById("additional-info").value.trim();
+    
+            if (!publisherName || !publisherContact || !leavingFrom || !goingTo || !dateTime || !seats || !price) {
+                alert("Please fill in all required fields.");
+                return;
+            }
+    
+            let dateObj = new Date(dateTime);
+            let formattedDate = `${String(dateObj.getDate()).padStart(2, '0')}-${String(dateObj.getMonth() + 1).padStart(2, '0')}-${dateObj.getFullYear()}`;
+    
+            let rideID = Date.now(); // Generates a unique timestamp
+let ride = {
+  id: rideID, // unique identifier
+  publisherName,
+  publisherContact,
+  leavingFrom,
+  goingTo,
+  dateTime: formattedDate,
+  seats: parseInt(seats),
+  price,
+  additionalInfo
+};
+
+
+    
+            let rides = JSON.parse(localStorage.getItem("rides")) || [];
+            rides.push(ride);
+            localStorage.setItem("rides", JSON.stringify(rides));
+    
+            alert("Ride published successfully!");
+            window.location.href = "home.html";
+        });
+    </script>
+  </body>
+</html>
