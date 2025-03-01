@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ride Summary</title>
+    <link rel="stylesheet" href="Home.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        .rides-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .ride-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 320px;
+            position: relative;
+        }
+        .ride-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.4em;
+            color: #156768;
+        }
+        .ride-card p {
+            margin: 5px 0;
+            font-size: 0.95em;
+            color: #333;
+        }
+        .passenger-item {
+            background: #f9f9f9;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+        .delete-btn {
+            background: #d9534f;
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .delete-btn:hover {
+            background: #c9302c;
+        }
+        .no-passenger {
+            font-style: italic;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Ride Summary</h1>
+    <div class="rides-container"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let ridesContainer = document.querySelector(".rides-container");
+            let rides = JSON.parse(localStorage.getItem("rides")) || [];
+            let passengers = JSON.parse(localStorage.getItem("passengers")) || [];
+
+            function renderRides() {
+                ridesContainer.innerHTML = "";
+                if (rides.length === 0) {
+                    ridesContainer.innerHTML = "<p>No rides available.</p>";
+                    return;
+                }
+
+                rides.forEach((ride, index) => {
+                    // Fix: Convert Date Format to Match Passengers (If Needed)
+                    let rideKey = `${ride.leavingFrom.trim()}-${ride.goingTo.trim()}-${ride.dateTime.trim()}`;
+
+                    // Fix: Ensure Passengers Match Ride Owner Correctly
+                    let ridePassengers = passengers.filter(p => {
+                        let passengerRideKey = `${p.pickup.trim()}-${p.dropoff.trim()}-${p.date.trim()}`;
+                        return passengerRideKey === rideKey;
+                    });
+
+                    let rideCard = document.createElement("div");
+                    rideCard.classList.add("ride-card");
+                    rideCard.innerHTML = `
+                        <h3>${ride.leavingFrom} to ${ride.goingTo}</h3>
+                        <p><strong>Date:</strong> ${ride.dateTime}</p>
+                        <p><strong>Published by:</strong> ${ride.publisherName} (${ride.publisherContact})</p>
+                        <p><strong>Seats Available:</strong> ${ride.seats}</p>
+                        <h4>Passengers:</h4>
+                        <div class="passengers-list">
+                            ${ridePassengers.length > 0 ? ridePassengers.map(p => `
+                                <div class="passenger-item">
+                                    <p><strong>Name:</strong> ${p.name}</p>
+                                    <p><strong>Contact:</strong> ${p.contact}</p>
+                                    <p><strong>Seats Booked:</strong> ${p.seatsBooked || 1}</p>
+                                </div>
+                            `).join('') : '<p class="no-passenger">No passengers booked yet.</p>'}
+                        </div>
+                        <button class="delete-btn" data-index="${index}">Delete</button>
+                    `;
+                    ridesContainer.appendChild(rideCard);
+                });
+
+                document.querySelectorAll(".delete-btn").forEach(button => {
+                    button.addEventListener("click", function () {
+                        let rideIndex = this.getAttribute("data-index");
+                        rides.splice(rideIndex, 1);
+                        localStorage.setItem("rides", JSON.stringify(rides));
+                        renderRides();
+                    });
+                });
+            }
+
+            renderRides();
+        });
+    </script>
+</body>
+</html>
