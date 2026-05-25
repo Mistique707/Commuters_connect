@@ -2,7 +2,6 @@
 
 **Commuter Connect** is a web-based carpooling platform designed to help college commuters find and share rides easily. By connecting drivers with empty seats to passengers heading the same way, the platform promotes sustainable travel, reduces commuting costs, and fosters a sense of community.
 
-*This is an ASEP project for Group 10 CE div A.*
 
 ## 🚀 Features
 
